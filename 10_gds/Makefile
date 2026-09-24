@@ -8,16 +8,15 @@
 # ===============================================================================
 
 PROJECT_ROOT := $(abspath ..)
-PDK_ROOT ?= $(shell find $(HOME)/.ciel -path "*/sky130A/libs.tech/netgen/sky130A_setup.tcl" -print -quit 2>/dev/null | sed 's#/sky130A/libs.tech/netgen/sky130A_setup.tcl##')
-export PDK_ROOT
+PYTHON ?= python
 
 .PHONY: all gds clean
 
 all: gds
 
 gds:
-	cd "$(PROJECT_ROOT)" && if [ ! -f 09_place_and_route/route.def ]; then $(MAKE) -C 09_place_and_route route; fi
-	cd "$(PROJECT_ROOT)" && bash 10_gds/run_gds_streamout.sh
+	$(PYTHON) "$(PROJECT_ROOT)/run.py" ensure_stage "$(PROJECT_ROOT)" "09_place_and_route/route.def" "09_place_and_route" "route"
+	$(PYTHON) "$(PROJECT_ROOT)/run.py" run_gds "$(PROJECT_ROOT)"
 
 clean:
-	cd "$(PROJECT_ROOT)" && rm -f 10_gds/APB_Protocol.gds
+	$(PYTHON) "$(PROJECT_ROOT)/run.py" clean_files "$(PROJECT_ROOT)" "10_gds/APB_Protocol.gds"

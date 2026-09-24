@@ -20,4 +20,8 @@ sdc:
 	cd "$(PROJECT_ROOT)" && igny run yosys -c 04_synthesis/gen_sdc.tcl
 
 clean:
-	cd "$(PROJECT_ROOT)" && rm -f 04_synthesis/_in.txt 04_synthesis/_out.txt 04_synthesis/synth_output.v 04_synthesis/constraints.sdc
+	python "$(PROJECT_ROOT)/run.py" clean_files "$(PROJECT_ROOT)" \
+		"04_synthesis/_in.txt" \
+		"04_synthesis/_out.txt" \
+		"04_synthesis/synth_output.v" \
+		"04_synthesis/constraints.sdc"

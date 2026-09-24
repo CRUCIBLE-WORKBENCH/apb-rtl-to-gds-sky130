@@ -24,5 +24,9 @@ env:
 	cd "$(PROJECT_ROOT)" && igny run script "$(VERIFY_ROOT)/run_apb_env.py"
 
 clean:
-	cd "$(PROJECT_ROOT)" && rm -rf "$(VERIFY_ROOT)/results" "$(VERIFY_ROOT)/sim_build" "$(VERIFY_ROOT)/sim_build_env"
-	cd "$(PROJECT_ROOT)" && find "$(VERIFY_ROOT)" -type d -name "__pycache__" -exec rm -rf {} +
+	python "$(PROJECT_ROOT)/run.py" clean_dirs "$(PROJECT_ROOT)" \
+		"$(VERIFY_ROOT)/results" \
+		"$(VERIFY_ROOT)/sim_build" \
+		"$(VERIFY_ROOT)/sim_build_env"
+
+	python "$(PROJECT_ROOT)/run.py" clean_pycache "$(PROJECT_ROOT)" "$(VERIFY_ROOT)"

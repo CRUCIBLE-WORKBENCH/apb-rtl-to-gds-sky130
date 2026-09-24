@@ -8,14 +8,24 @@
 # ===============================================================================
 
 PROJECT_ROOT := $(abspath ..)
+PYTHON ?= python
 
 .PHONY: all physical clean
 
 all: physical
 
 physical:
-	cd "$(PROJECT_ROOT)" && if [ ! -f 10_gds/APB_Protocol.gds ]; then $(MAKE) -C 10_gds; fi
-	cd "$(PROJECT_ROOT)" && bash 11_physical_verification/run_physical_verification.sh
+	$(PYTHON) "$(PROJECT_ROOT)/run.py" ensure_stage "$(PROJECT_ROOT)" "10_gds/APB_Protocol.gds" "10_gds"
+	$(PYTHON) "$(PROJECT_ROOT)/run.py" run_physical "$(PROJECT_ROOT)"
 
 clean:
-	cd "$(PROJECT_ROOT)" && rm -f 11_physical_verification/results/*.ext 11_physical_verification/results/*.log 11_physical_verification/results/*.spice 11_physical_verification/results/*.v 11_physical_verification/results/*.commands 11_physical_verification/results/physical_verification_status.txt 11_physical_verification/results/openroad_route_drc.rpt
+	$(PYTHON) "$(PROJECT_ROOT)/run.py" clean_glob "$(PROJECT_ROOT)" \
+		"11_physical_verification/results/*.ext" \
+		"11_physical_verification/results/*.log" \
+		"11_physical_verification/results/*.spice" \
+		"11_physical_verification/results/*.v" \
+		"11_physical_verification/results/*.commands"
+
+	$(PYTHON) "$(PROJECT_ROOT)/run.py" clean_files "$(PROJECT_ROOT)" \
+		"11_physical_verification/results/physical_verification_status.txt" \
+		"11_physical_verification/results/openroad_route_drc.rpt"

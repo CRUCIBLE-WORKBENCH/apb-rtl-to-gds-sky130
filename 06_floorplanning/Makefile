@@ -23,4 +23,4 @@ floorplan:
 	cd "$(PROJECT_ROOT)" && igny run openroad -exit 06_floorplanning/openroad_floorplan.tcl
 
 clean:
-	cd "$(PROJECT_ROOT)" && rm -f 06_floorplanning/floorplan.def 06_floorplanning/floorplan.odb 06_floorplanning/_sky130_tech.tlef
+	python "$(PROJECT_ROOT)/run.py" clean_files "$(PROJECT_ROOT)" "06_floorplanning/floorplan.def" "06_floorplanning/floorplan.odb" "06_floorplanning/_sky130_tech.tlef"

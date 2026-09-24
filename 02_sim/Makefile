@@ -22,7 +22,7 @@ compile:
 
 run:
 	cd "$(PROJECT_ROOT)" && igny run vvp "$(SIM_OUT)"
-	cd "$(PROJECT_ROOT)" && if [ -f apbWaveform.vcd ]; then mv -f apbWaveform.vcd "$(WAVE_OUT)"; fi
-
+	python ../run.py move_waveform "$(PROJECT_ROOT)" "$(WAVE_OUT)"
+	
 clean:
-	cd "$(PROJECT_ROOT)" && rm -f "$(SIM_OUT)" "$(WAVE_OUT)" apbWaveform.vcd
+	python ../run.py clean_files "$(PROJECT_ROOT)" "$(SIM_OUT)" "$(WAVE_OUT)"

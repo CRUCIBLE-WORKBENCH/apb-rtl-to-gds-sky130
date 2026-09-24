@@ -21,4 +21,4 @@ place:
 	cd "$(PROJECT_ROOT)" && igny run openroad -exit 07_placement/openroad_placement.tcl
 
 clean:
-	cd "$(PROJECT_ROOT)" && rm -f 07_placement/placement.def 07_placement/placement.odb
+	python "$(PROJECT_ROOT)/run.py" clean_files "$(PROJECT_ROOT)" "07_placement/placement.def" "07_placement/placement.odb"

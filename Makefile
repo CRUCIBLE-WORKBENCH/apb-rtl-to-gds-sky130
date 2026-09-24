@@ -7,6 +7,9 @@
 # Description : Top-level Make orchestration for the APB RTL-to-GDS flow.
 # ===============================================================================
 
+PROJECT_ROOT := $(abspath .)
+PYTHON ?= python
+
 .PHONY: all flow lint rtl sim verify synth dft floorplan place cts route sta gds physical clean
 
 all: flow
@@ -64,4 +67,4 @@ clean:
 	$(MAKE) -C 08_sta clean
 	$(MAKE) -C 10_gds clean
 	$(MAKE) -C 11_physical_verification clean
-	rm -f apbWaveform.vcd
+	$(PYTHON) "$(PROJECT_ROOT)/run.py" clean_files "$(PROJECT_ROOT)" "apbWaveform.vcd"

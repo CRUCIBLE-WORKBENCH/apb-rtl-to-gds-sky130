@@ -17,4 +17,6 @@ lint:
 	cd "$(PROJECT_ROOT)" && igny run verilator --lint-only -Wall -Wno-fatal -I01_rtl 01_rtl/apb_protocol.v
 
 clean:
-	cd "$(PROJECT_ROOT)" && rm -f 00_lint/lint_report.txt 00_lint/lint_stdout.tmp
+	python "$(PROJECT_ROOT)/run.py" clean_files "$(PROJECT_ROOT)" \
+		"00_lint/lint_report.txt" \
+		"00_lint/lint_stdout.tmp"
