@@ -1,0 +1,111 @@
+{
+  "active_environment": "amba_apb",
+  "environments": [
+    {
+      "name": "amba_apb",
+      "stack": "default",
+      "tools": [
+        {
+          "artifact_id": null,
+          "checksum": null,
+          "enabled": true,
+          "name": "ciel",
+          "platform": "linux-x86_64",
+          "source": "pip",
+          "version": "3.0.0"
+        },
+        {
+          "artifact_id": null,
+          "checksum": null,
+          "enabled": true,
+          "name": "cocotb",
+          "platform": "linux-x86_64",
+          "source": "pip",
+          "version": "2.1.0"
+        },
+        {
+          "artifact_id": "igny_linux-x64_gtkwave_3.4.0.0.tar.gz",
+          "checksum": "sha256:6a4d87803e16b5a1055cca152afebf7c45a14f6511c3316c7567f3af009a76fa",
+          "enabled": true,
+          "name": "gtkwave",
+          "platform": "linux-x86_64",
+          "source": "artifact",
+          "version": "3.4.0"
+        },
+        {
+          "artifact_id": "igny_linux-x64_iverilog_14.0.0.0.tar.gz",
+          "checksum": "sha256:ea8c88407f03105163c70d03bba56a68b527188c7cf9437aa009048e74182216",
+          "enabled": true,
+          "name": "iverilog",
+          "platform": "linux-x86_64",
+          "source": "artifact",
+          "version": "14.0.0"
+        },
+        {
+          "artifact_id": "igny_ubuntu_klayout-stream_0.30.10.tar.gz",
+          "checksum": "sha256:227d263b49db51fd28b183dd09ff4cf9870d9919020f2ae3560399eb40a5c022",
+          "enabled": true,
+          "name": "klayout-stream",
+          "platform": "linux-x86_64",
+          "source": "artifact",
+          "version": "0.30.10"
+        },
+        {
+          "artifact_id": "igny_ubuntu_magic_8.3.682.tar.gz",
+          "checksum": "sha256:337101257c7686ed5a00043ae05dfe72815c5ad45ec5603a823f9d85e953279a",
+          "enabled": true,
+          "name": "magic",
+          "platform": "linux-x86_64",
+          "source": "artifact",
+          "version": "8.3.682"
+        },
+        {
+          "artifact_id": "igny_ubuntu_make_4.4.1.0.tar.gz",
+          "checksum": "sha256:fe8c582d66e3c15335a5990a4c4d9d6e98f75f143390f1c98a31c1176e0a7708",
+          "enabled": true,
+          "name": "make",
+          "platform": "linux-x86_64",
+          "source": "artifact",
+          "version": "4.4.1"
+        },
+        {
+          "artifact_id": "igny_ubuntu_netgen_1.5.323.tar.gz",
+          "checksum": "sha256:375dfcce897268c7f285cd9440d85cbfe7a6462d24cef62c5952689b24ef20c6",
+          "enabled": true,
+          "name": "netgen",
+          "platform": "linux-x86_64",
+          "source": "artifact",
+          "version": "1.5.323"
+        },
+        {
+          "artifact_id": "igny_ubuntu_openroad_26Q3-771-g7cfb2105c9.0.tar.gz",
+          "checksum": "sha256:25f050f8cad58e87a44fad1ff9af3d7942cd4c87721b7823932cb33a222c0bc9",
+          "enabled": true,
+          "name": "openroad",
+          "platform": "linux-x86_64",
+          "source": "artifact",
+          "version": "26Q3-771-g7cfb2105c9"
+        },
+        {
+          "artifact_id": "igny_linux-x64_verilator_5.047.0.0.tar.gz",
+          "checksum": "sha256:d06e131794520bdab625568c9a2e74318e2761652a76a285544a9dac7041f5bc",
+          "enabled": true,
+          "name": "verilator",
+          "platform": "linux-x86_64",
+          "source": "artifact",
+          "version": "5.047.0"
+        },
+        {
+          "artifact_id": "igny_linux-x64_yosys_0.63.0.0.tar.gz",
+          "checksum": "sha256:aef5f741ae4e1e036dccc6eac6f9f27393c604099372180849a5c5f3b5c8224e",
+          "enabled": true,
+          "name": "yosys",
+          "platform": "linux-x86_64",
+          "source": "artifact",
+          "version": "0.63.0"
+        }
+      ]
+    }
+  ],
+  "schema_version": 1
+}

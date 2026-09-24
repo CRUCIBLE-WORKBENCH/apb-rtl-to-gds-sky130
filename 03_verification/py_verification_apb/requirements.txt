@@ -1,0 +1,12 @@
+# ===============================================================================
+# Ignytion IO - CRUCIBLE CORE
+# Copyright (c) 2026 Ignytion IO. All rights reserved.
+# Author      : IGNYTION_TECH
+# File        : apb_synthesis_with_sky130pdk/03_verification/py_verification_apb/requirements.txt
+# Created     : 2026-09-07
+# Description : APB project source, configuration, or documentation file.
+# ===============================================================================
+
+cocotb>=1.9
+pyuvm>=3.0
+cocotb-coverage>=2.0

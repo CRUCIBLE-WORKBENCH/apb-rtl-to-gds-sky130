@@ -1,0 +1,49 @@
+# ===============================================================================
+# Ignytion IO - CRUCIBLE CORE
+# .gitignore for apb_synthesis_with_sky130pdk
+# ===============================================================================
+
+# Simulation waveforms / logs
+*.vcd
+*.fst
+*.fsdb
+*.log
+lint_report.txt
+lint_stdout.tmp
+
+# Synthesis / P&R / STA generated outputs
+*.sdc
+*.def
+*.odb
+*.spef
+*.sdf
+04_synthesis/*.json
+04_synthesis/*.v
+!04_synthesis/synth.tcl
+!04_synthesis/gen_sdc.tcl
+
+# GDS / layout outputs
+*.gds
+*.gds.gz
+*.lef
+*.mag
+*.magic.rc
+
+# Physical verification reports (generated)
+11_physical_verification/results/*
+!11_physical_verification/results/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# Crucible / igny local run state (not the tracked toml/lock)
+.ignytion/
+crucible/*.tmp
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp

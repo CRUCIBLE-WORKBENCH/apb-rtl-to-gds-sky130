@@ -1,0 +1,85 @@
+# ===============================================================================
+# Ignytion IO - CRUCIBLE CORE
+# Copyright (c) 2026 Ignytion IO. All rights reserved.
+# Author      : IGNYTION_TECH
+# File        : apb_synthesis_with_sky130pdk/10_gds/lefdef_layer_map.txt
+# Created     : 2026-09-08
+# Description : klayout-stream strm2gds LEF/DEF layer map for Sky130.
+# ===============================================================================
+#
+# Without this map, strm2gds's default (pattern-based, unconfigured) LEF/DEF
+# import assigns top-level DEF geometry -- ROUTING (signal nets) and
+# SPECIALNETS (power/ground straps, i.e. the PDN) -- to small made-up layer
+# numbers of its own choosing (confirmed live, 2026-09-08: it used GDS
+# layer/datatype 5, 7, 9, 11, 13 for met1..met5 routing, none of which mean
+# anything to the sky130 techfile). Standard-cell interiors are unaffected
+# because they're resolved separately via FOREIGN against the real PDK GDS
+# (sky130_fd_sc_hd.gds), so they already land on the PDK's real numbers --
+# which is why per-cell geometry (DRC, individual device pins) always looked
+# fine while every LVS run's net-count mismatch tracked ~all top-level
+# interconnect, not just power: none of the routing between cells was ever
+# visible to Magic's extraction, on any run, before this map existed.
+#
+# Target layer/datatype pairs below are copied directly from Magic's own
+# GDS import table (sky130A.tech "calma" lines) for the "drawing" purpose of
+# each layer, so whatever strm2gds produces here is exactly what Magic
+# already expects when it reads this GDS back in for DRC/extraction.
+#
+#   li1  -> 67/20   met1 -> 68/20   met2 -> 69/20   met3 -> 70/20
+#   met4 -> 71/20   met5 -> 72/20
+#   mcon -> 67/44 (li1<->met1 cut)   via  -> 68/44 (met1<->met2 cut)
+#   via2 -> 69/44 (met2<->met3 cut)  via3 -> 70/44 (met3<->met4 cut)
+#   via4 -> 71/44 (met4<->met5 cut)
+
+# Each metal layer's own drawing purposes go to Magic's "drawing" datatype
+# (20). Real via connectivity is carried entirely by the unambiguous cut
+# layers below (via/via2/via3/via4, each its own LEF layer name) overlapping
+# the metal shapes above and below it -- that's all Magic needs to extract
+# the connection.
+#
+# Deliberately NOT mapping each metal's "VIA" purpose (the landing-pad
+# enclosure klayout also draws on the metal layer itself around every via).
+# For an inner layer that's ambiguous: a via1 (met1<->met2) and a via2
+# (met2<->met3) BOTH produce a "layer=met2, purpose=VIA" enclosure, with
+# nothing to tell them apart, so one target datatype necessarily conflates
+# two unrelated via layers. Confirmed live, 2026-09-08: mapping "met2 VIA"
+# to VIA2's own datatype (69/44) meant every via1 landing pad on met2 -- and
+# with it, anything electrically upstream through that via1 -- landed on
+# the same layer/datatype as every real via2 cut in the design and merged
+# into it. The clock net (PCLK), being the most via-heavy, widely-routed
+# net in the design, absorbed most of the chip into one node this way:
+# layout-side net count collapsed from a correct ~9000+ to 1427. Leaving
+# "VIA" purpose unmapped drops only the redundant enclosure geometry, not
+# any real connectivity -- the cut-layer overlap below already provides it.
+li1   LEFPIN,PIN,NET,SPNET   67 20
+li1   LABEL                  67 5
+mcon  LEFPIN,PIN,NET,SPNET,VIA   67 44
+
+met1  LEFPIN,PIN,NET,SPNET   68 20
+met1  LABEL                  68 5
+via   LEFPIN,PIN,NET,SPNET,VIA   68 44
+
+met2  LEFPIN,PIN,NET,SPNET   69 20
+met2  LABEL                  69 5
+via2  LEFPIN,PIN,NET,SPNET,VIA   69 44
+
+met3  LEFPIN,PIN,NET,SPNET   70 20
+met3  LABEL                  70 5
+via3  LEFPIN,PIN,NET,SPNET,VIA   70 44
+
+met4  LEFPIN,PIN,NET,SPNET   71 20
+met4  LABEL                  71 5
+via4  LEFPIN,PIN,NET,SPNET,VIA   71 44
+
+met5  LEFPIN,PIN,NET,SPNET   72 20
+met5  LABEL                  72 5
+
+# DEF PORT/PIN net-name text is a distinct "label attached to a layer+purpose"
+# case, addressed with the special 'NAME' pseudo-layer (per strm2gds --help),
+# not the plain '<layer> LABEL' form above (which covers generic DEF LABEL
+# elements, not PIN-derived net-name text). place_pins put I/O ports on
+# met2 (vertical) and met3 (horizontal) -- confirmed live, 2026-09-08, that
+# without these, port name text on met3 was silently dropped even though
+# the port's own geometry (met3 PIN, mapped above) still made it through.
+NAME  met2/PIN   69 5
+NAME  met3/PIN   70 5
