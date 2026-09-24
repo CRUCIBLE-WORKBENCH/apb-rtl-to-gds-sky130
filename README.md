@@ -55,13 +55,4 @@ Tool versions are pinned in `crucible.lock`. On another machine:
 igny workspace sync   # installs + binds every tool in crucible.lock
 igny status            # confirm environment + tool count
 ```
-
-## Known issues
-
-- **`igny tool install pyuvm` fails** with
-  `unsupported operand type(s) for /: 'PosixPath' and 'NoneType'`.
-  Root cause: the bundled `pyuvm.toml` registry entry has no `executable`
-  under `[tool.pip]` (pyuvm is a library, not a CLI). Tracked as
-  [IB-58](https://ignytion-io.atlassian.net/browse/IB-58). Until fixed
-  upstream, verification work depending on `pyuvm` is blocked on this
-  workspace unless a local user-registry override is applied.
+=
